@@ -38,18 +38,39 @@
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+
+    <h2>Registered Users</h2>
+    <ul id="userList"></ul>
   </div>
 
   <script>
+    function displayUsers() {
+      var userListElement = document.getElementById('userList');
+      userListElement.innerHTML = '';
+
+      // Retrieve existing user data from local storage
+      var existingUsers = localStorage.getItem('users');
+
+      // Check if any existing user data is present
+      var users = existingUsers ? JSON.parse(existingUsers) : [];
+
+      // Display each user in the list
+      users.forEach(function(user) {
+        var listItem = document.createElement('li');
+        listItem.textContent = user.firstName + ' ' + user.lastName + ' - ' + user.email + ' - ' + user.contactNumber;
+        userListElement.appendChild(listItem);
+      });
+    }
+
     document.getElementById('registrationForm').addEventListener('submit', function(e) {
       e.preventDefault(); // Prevent form submission
-  
+
       // Get form values
       var firstName = document.getElementById('firstName').value;
       var lastName = document.getElementById('lastName').value;
       var email = document.getElementById('email').value;
       var contactNumber = document.getElementById('contactNumber').value;
-  
+
       // Create user object
       var user = {
         firstName: firstName,
@@ -57,34 +78,30 @@
         email: email,
         contactNumber: contactNumber
       };
-  
+
       // Retrieve existing user data from local storage
       var existingUsers = localStorage.getItem('users');
-  
+
       // Check if any existing user data is present
       var users = existingUsers ? JSON.parse(existingUsers) : [];
-  
+
       // Add the current user to the users array
       users.push(user);
-  
+
       // Store the updated users array in local storage
       localStorage.setItem('users', JSON.stringify(users));
-  
+
       // Clear form fields
       document.getElementById('firstName').value = '';
       document.getElementById('lastName').value = '';
       document.getElementById('email').value = '';
       document.getElementById('contactNumber').value = '';
-  
-      alert('Registration successful!');
-  
-      // Set background image dynamically
-      var imageUrl = 'https://example.com/background.jpg'; // Replace with your desired image URL
-      document.body.style.backgroundImage = 'url(' + imageUrl + ')';
-  
-      // Redirect to another page or perform any other actions
+// hiii
+      // Display the updated users
+      displayUsers();
     });
+
+    displayUsers();
   </script>
-  
 </body>
 </html>

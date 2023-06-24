@@ -55,11 +55,41 @@
       var users = existingUsers ? JSON.parse(existingUsers) : [];
 
       // Display each user in the list
-      users.forEach(function(user) {
+      users.forEach(function(user, index) {
         var listItem = document.createElement('li');
         listItem.textContent = user.firstName + ' ' + user.lastName + ' - ' + user.email + ' - ' + user.contactNumber;
+
+        // Create delete button for each user
+        var deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.className = 'btn btn-danger btn-sm ml-2';
+        deleteButton.addEventListener('click', function() {
+          deleteUser(index);
+        });
+
+        // Append delete button to list item
+        listItem.appendChild(deleteButton);
+
+        // Append list item to user list
         userListElement.appendChild(listItem);
       });
+    }
+
+    function deleteUser(index) {
+      // Retrieve existing user data from local storage
+      var existingUsers = localStorage.getItem('users');
+
+      // Check if any existing user data is present
+      var users = existingUsers ? JSON.parse(existingUsers) : [];
+
+      // Remove the user at the specified index
+      users.splice(index, 1);
+
+      // Store the updated users array in local storage
+      localStorage.setItem('users', JSON.stringify(users));
+
+      // Refresh the displayed users
+      displayUsers();
     }
 
     document.getElementById('registrationForm').addEventListener('submit', function(e) {
@@ -96,11 +126,12 @@
       document.getElementById('lastName').value = '';
       document.getElementById('email').value = '';
       document.getElementById('contactNumber').value = '';
-// hiii
+
       // Display the updated users
       displayUsers();
     });
 
+    // Display initial users on page load
     displayUsers();
   </script>
 </body>

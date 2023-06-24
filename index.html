@@ -43,13 +43,13 @@
   <script>
     document.getElementById('registrationForm').addEventListener('submit', function(e) {
       e.preventDefault(); // Prevent form submission
-
+  
       // Get form values
       var firstName = document.getElementById('firstName').value;
       var lastName = document.getElementById('lastName').value;
       var email = document.getElementById('email').value;
       var contactNumber = document.getElementById('contactNumber').value;
-
+  
       // Create user object
       var user = {
         firstName: firstName,
@@ -57,25 +57,34 @@
         email: email,
         contactNumber: contactNumber
       };
-
-      // Store user object in local storage
-      localStorage.setItem('user', JSON.stringify(user));
-
+  
+      // Retrieve existing user data from local storage
+      var existingUsers = localStorage.getItem('users');
+  
+      // Check if any existing user data is present
+      var users = existingUsers ? JSON.parse(existingUsers) : [];
+  
+      // Add the current user to the users array
+      users.push(user);
+  
+      // Store the updated users array in local storage
+      localStorage.setItem('users', JSON.stringify(users));
+  
       // Clear form fields
       document.getElementById('firstName').value = '';
       document.getElementById('lastName').value = '';
       document.getElementById('email').value = '';
       document.getElementById('contactNumber').value = '';
-
+  
       alert('Registration successful!');
-
+  
       // Set background image dynamically
       var imageUrl = 'https://example.com/background.jpg'; // Replace with your desired image URL
       document.body.style.backgroundImage = 'url(' + imageUrl + ')';
-
+  
       // Redirect to another page or perform any other actions
     });
   </script>
-
+  
 </body>
 </html>

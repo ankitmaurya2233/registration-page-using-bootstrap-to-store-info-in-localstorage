@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Registration Form</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    body {
+      background-image: url(''); /* Initially empty */
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container mt-5">
+    <h2>User Registration Form</h2>
+    <form id="registrationForm">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="firstName">First Name:</label>
+          <input type="text" class="form-control" id="firstName" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="lastName">Last Name:</label>
+          <input type="text" class="form-control" id="lastName" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" required>
+      </div>
+      <div class="form-group">
+        <label for="contactNumber">Contact Number:</label>
+        <input type="tel" class="form-control" id="contactNumber" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('registrationForm').addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevent form submission
+
+      // Get form values
+      var firstName = document.getElementById('firstName').value;
+      var lastName = document.getElementById('lastName').value;
+      var email = document.getElementById('email').value;
+      var contactNumber = document.getElementById('contactNumber').value;
+
+      // Create user object
+      var user = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        contactNumber: contactNumber
+      };
+
+      // Store user object in local storage
+      localStorage.setItem('user', JSON.stringify(user));
+
+      // Clear form fields
+      document.getElementById('firstName').value = '';
+      document.getElementById('lastName').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('contactNumber').value = '';
+
+      alert('Registration successful!');
+
+      // Set background image dynamically
+      var imageUrl = 'https://example.com/background.jpg'; // Replace with your desired image URL
+      document.body.style.backgroundImage = 'url(' + imageUrl + ')';
+
+      // Redirect to another page or perform any other actions
+    });
+  </script>
+
+</body>
+</html>
